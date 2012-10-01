@@ -39,3 +39,4 @@ gem 'debugger'
 
 gem 'twitter-bootstrap-rails'
 gem 'authlogic'
+#gem 'simple-navigation'

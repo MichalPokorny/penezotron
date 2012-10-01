@@ -5,16 +5,20 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :transactions
 
+  def transactions_contributed
+    Transaction.all.select { |t| t.payer == id }
+  end
+
+  def transactions_expedited
+    Transaction.all.select { |t| t.users.include? self }
+  end
+
   # TODO optimalizuj
   def total_contribution
-    Transaction.all.map { |transaction|
-      (transaction.payer == id) ? transaction.amount : 0
-    }.inject(:+)
+    transactions_contributed.map { |t| t.amount }.inject(:+) || 0
   end
 
   def total_expedience
-    Transaction.all.map { |transaction|
-      (transaction.users.include? self) ? transaction.amount_per_user : 0
-    }.inject(:+)
+    transactions_expedited.map { |t| t.amount_per_user }.inject(:+) || 0
   end
 end

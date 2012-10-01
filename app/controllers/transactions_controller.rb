@@ -21,17 +21,6 @@ class TransactionsController < ApplicationController
     end
   end
 
-  # GET /transactions/new
-  # GET /transactions/new.json
-  def new
-    @transaction = Transaction.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @transaction }
-    end
-  end
-
   # GET /transactions/1/edit
   def edit
     @transaction = Transaction.find(params[:id])
@@ -45,10 +34,10 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.html { redirect_to :home, notice: 'Transaction was successfully created.' }
         format.json { render json: @transaction, status: :created, location: @transaction }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to :home }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end

@@ -1,6 +1,3 @@
-<h1>Ahoj <%= current_user.username %></h1>
-
-
 <%= form_for(@transaction) do |f| %>
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
@@ -43,9 +40,9 @@
 <% end %>
 
 <!-- TODO detail, seznam jeho transakci -->
-<table>
+<table class="contribution-summary">
   <tr>
-    <th>Username</th>
+    <th>Kdo</th>
     <th>Celkem dal</th>
     <th>Celkem vzal</th>
   </tr>
@@ -60,7 +57,7 @@
 <% end %>
 </table>
 
-<table>
+<table class="transaction-list">
   <tr>
     <th>Věc</th>
     <th>Zaplatil</th>

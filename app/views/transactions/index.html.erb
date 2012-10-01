@@ -1,28 +1,19 @@
-<h1>Listing transactions</h1>
+<h1>Seznam transakcí</h1>
 
-<table>
+<table class="transaction-list">
   <tr>
     <th>Věc</th>
     <th>Zaplatil</th>
     <th>Pro</th>
     <th>Kolik</th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @transactions.each do |transaction| %>
   <tr>
-    <td><%= transaction.name %></td>
+    <td><%= link_to transaction.name, transaction %></td>
     <td><%= User.find_by_id(transaction.payer).username %></td>
-    <td><%= transaction.users.map { |user| user.username }.to_a.join ", " %></td>
+    <td><%= transaction.nice_user_list %></td>
     <td><%= transaction.amount %></td>
-    <td><%= link_to 'Show', transaction %></td>
-    <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-    <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Transaction', new_transaction_path %>

@@ -1,14 +1,57 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+<b>Username:</b>
+<%= @user.username %>
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
+<b>Email:</b>
+<%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<table class="user_contributed">
+	<thead>
+		<tr>
+			<th colspan="4">Přispěl</th>
+		</tr>
+		<tr>
+			<th>Věc</th>
+			<th>Pro</th>
+			<th>Kolik</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<% @user.transactions_contributed.each do |transaction| %>
+		<tr>
+			<td><%= transaction.name %></td>
+			<td><%= transaction.nice_user_list %></td>
+			<td><%= transaction.amount %></td>
+			<td><%= link_to 'Show', transaction %></td>
+		</tr>
+	<% end %>
+</table>
+
+<table class="user_expedited">
+	<thead>
+		<tr>
+			<th colspan="4">Přijmul</th>
+		</tr>
+		<tr>
+			<th>Věc</th>
+			<th>Od</th>
+			<th>Kolik</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<% @user.transactions_contributed.each do |transaction| %>
+		<tr>
+			<td><%= transaction.name %></td>
+			<td><%= User.find_by_id(transaction.payer).username %></td>
+			<td><%= transaction.amount_per_user %></td>
+			<td><%= link_to 'Show', transaction %></td>
+		</tr>
+	<% end %>
+</table>

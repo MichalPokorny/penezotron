@@ -7,23 +7,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div id="nav">
-		<% if current_user %>
-			<%= link_to "Transakce", transactions_path %>
-			<%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-			<%= link_to "Register", new_user_path %>
-			<%= link_to "Logout", :logout %>
-		<% else %>
-			<%= link_to "Login", :login %>
-		<% end %>
-	</div>
-
-	<% flash.each do |key,msg| %>
-		<div id="<%= key %>">
-			<%= msg %>
+	<% if current_user %>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<ul class="nav nav-tabs">
+				<li><%= link_to current_user.username, current_user, :class => "icon-user" %></li>
+				<li><%= link_to "Home", :home, :class => "icon-home" %></li>
+				<li><%= link_to "Transakce", transactions_path, :class => "icon-file" %></li>
+				<li><%= link_to "Změna údajů", edit_user_path(current_user.id), :class => "icon-edit" %></li>
+				<li><%= link_to "Registrace nového uživatele", new_user_path, :class => "icon-asterisk" %></li>
+				<li><%= link_to "Odhlásit", :logout, :class => "icon-signout" %></li>
+			</ul>
 		</div>
+	</div>
 	<% end %>
-<%= yield %>
+
+	<div class="container">
+		<div class="content">
+			<% flash.each do |key,msg| %>
+				<div id="<%= key %>">
+					<%= msg %>
+				</div>
+			<% end %>
+			<%= yield %>
+		</div>
+	</div>
 
 </body>
 </html>
