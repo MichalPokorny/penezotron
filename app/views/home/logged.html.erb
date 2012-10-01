@@ -1,0 +1,81 @@
+<h1>Ahoj <%= current_user.username %></h1>
+
+
+<%= form_for(@transaction) do |f| %>
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% @transaction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+	  Pro:
+	  <% User.all.each do |user| %>
+		  <%= check_box_tag("transaction[user_list][#{user.id}]", "1", @transaction.users.detect{|d| d == user}) %>
+		  <%= user.username %>
+	  <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_field :notes %> <!-- TODO: area? -->
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<!-- TODO detail, seznam jeho transakci -->
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Celkem dal</th>
+    <th>Celkem vzal</th>
+  </tr>
+
+  <!-- TODO design -->
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.username %></td>
+    <td><%= user.total_contribution %></td>
+    <td><%= user.total_expedience %></td>
+  </tr>
+<% end %>
+</table>
+
+<table>
+  <tr>
+    <th>Věc</th>
+    <th>Zaplatil</th>
+    <th>Pro</th>
+    <th>Kolik</th>
+    <th></th>
+  </tr>
+
+<% @transactions.each do |transaction| %>
+  <tr>
+    <td><%= transaction.name %></td>
+    <td><%= User.find_by_id(transaction.payer).username %></td>
+    <td><%= transaction.nice_user_list %></td>
+    <td><%= transaction.amount %></td>
+    <td><%= link_to 'Show', transaction %></td>
+  </tr>
+<% end %>
+</table>

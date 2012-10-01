@@ -1,0 +1,44 @@
+<%= form_for(@transaction) do |f| %>
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% @transaction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Uzivatel: <%= current_user.username %>
+  </div>
+
+  <div class="field">
+	  Pro:
+	  <% User.all.each do |user| %>
+		  <%= check_box_tag("transaction[user_list][#{user.id}]", "1", @transaction.users.detect{|d| d == user}) %>
+		  <%= user.username %>
+	  <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_field :notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
