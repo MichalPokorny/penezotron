@@ -1,19 +1,23 @@
 <h1>Seznam transakcí</h1>
 
-<table class="transaction-list">
-  <tr>
-    <th>Věc</th>
-    <th>Zaplatil</th>
-    <th>Pro</th>
-    <th>Kolik</th>
-  </tr>
+<table class="transaction-list table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>Věc</th>
+			<th>Zaplatil</th>
+			<th>Pro</th>
+			<th>Kolik</th>
+		</tr>
+	</thead>
 
-<% @transactions.each do |transaction| %>
-  <tr>
-    <td><%= link_to transaction.name, transaction %></td>
-    <td><%= User.find_by_id(transaction.payer).username %></td>
-    <td><%= transaction.nice_user_list %></td>
-    <td><%= transaction.amount %></td>
-  </tr>
-<% end %>
+	<tbody>
+		<% @transactions.each do |transaction| %>
+			<tr>
+				<td><%= link_to transaction.name, transaction %></td>
+				<td><%= User.find_by_id(transaction.payer).username %></td>
+				<td><%= transaction.nice_user_list %></td>
+				<td><%= transaction.amount %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>

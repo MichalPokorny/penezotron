@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :current_user, :icon_link
+  helper_method :current_use
 
   private
 
@@ -13,9 +13,5 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
-  end
-
-  def icon_link(url, icon)
-    link_to '', url, :class => "icon-#{icon}"
   end
 end

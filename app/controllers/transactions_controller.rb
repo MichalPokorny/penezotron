@@ -29,13 +29,13 @@ class TransactionsController < ApplicationController
 	# POST /transactions
 	# POST /transactions.json
 	def create
-		payer = params[:transaction][:payer]
+		payer = params[:transaction][:payer].to_i
 		params[:transaction].delete :payer
 		@transaction = Transaction.new(params[:transaction])
 		if payer
-			@transaction.payer = User.find_by_id payer
+			@transaction.payer = payer
 		else
-			@transaction.payer = current_user
+			@transaction.payer = current_user.id
 		end
 
 		respond_to do |format|

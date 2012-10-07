@@ -1,82 +1,89 @@
 <%= form_for(@transaction) do |f| %>
-  <% if @transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+	<% if @transaction.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
 
-      <ul>
-      <% @transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<ul>
+				<% @transaction.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-  <div class="field">
-	  Od: <%= select("transaction", "payer", User.all.collect { |u| [ u.username, u.id ] }, :selected => current_user.id) %>
-  </div>
+	<div class="field">
+		Od: <%= select("transaction", "payer", User.all.collect { |u| [ u.username, u.id ] }, :selected => current_user.id) %>
+	</div>
 
-  <div class="field">
-	  Pro:
-	  <% User.all.each do |user| %>
-		  <%= check_box_tag("transaction[user_list][#{user.id}]", "1", @transaction.users.detect{|d| d == user}) %>
-		  <%= user.username %>
-	  <% end %>
-  </div>
+	<div class="field">
+		Pro:
+		<% User.all.each do |user| %>
+			<%= check_box_tag("transaction[user_list][#{user.id}]", "1", @transaction.users.detect{|d| d == user}) %>
+			<%= user.username %>
+		<% end %>
+	</div>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :amount %>
-    <%= f.text_field :amount %>
-  </div>
+	<div class="field">
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</div>
 
-  <div class="field">
-    <%= f.label :notes %>
-    <%= f.text_field :notes %> <!-- TODO: area? -->
-  </div>
+	<div class="field">
+		<%= f.label :amount %>
+		<%= f.text_field :amount %>
+	</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="field">
+		<%= f.label :notes %>
+		<%= f.text_field :notes %> <!-- TODO: area? -->
+	</div>
+
+	<div class="actions">
+		<%= f.submit :class => 'btn btn-primary' %>
+	</div>
 <% end %>
 
 <!-- TODO detail, seznam jeho transakci -->
-<table class="contribution-summary">
-  <tr>
-    <th>Kdo</th>
-    <th>Celkem dal</th>
-    <th>Celkem vzal</th>
-  </tr>
+<table class="contribution-summary table table-condensed table-bordered">
+	<thead>
+		<tr>
+			<th>Kdo</th>
+			<th>Celkem dal</th>
+			<th>Celkem vzal</th>
+		</tr>
+	</thead>
+	<tbody>
 
-  <!-- TODO design -->
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.username %></td>
-    <td><%= user.total_contribution %></td>
-    <td><%= user.total_expedience %></td>
-  </tr>
-<% end %>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= link_to user.username, user, :class => 'icon-user icon-large' %></td>
+				<td><%= user.total_contribution %></td>
+				<td><%= user.total_expedience %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
-<table class="transaction-list">
-  <tr>
-    <th>Věc</th>
-    <th>Zaplatil</th>
-    <th>Pro</th>
-    <th>Kolik</th>
-    <th></th>
-  </tr>
+<table class="transaction-list table table-condensed table-hover table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Věc</th>
+			<th>Zaplatil</th>
+			<th>Pro</th>
+			<th>Kolik</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
 
-<% @transactions.each do |transaction| %>
-  <tr>
-    <td><%= transaction.name %></td>
-    <td><%= User.find_by_id(transaction.payer).username %></td>
-    <td><%= transaction.nice_user_list %></td>
-    <td><%= transaction.amount %></td>
-    <td><%= link_to 'Show', transaction %></td>
-  </tr>
-<% end %>
+		<% @transactions.each do |transaction| %>
+			<tr>
+				<td><%= transaction.name %></td>
+				<td><%= link_to User.find_by_id(transaction.payer).username, User.find_by_id(transaction.payer), :class => 'icon-user icon-large' %></td>
+				<td><%= transaction.nice_user_list %></td>
+				<td><%= transaction.amount %></td>
+				<td><%= icon_link transaction, 'search' %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>

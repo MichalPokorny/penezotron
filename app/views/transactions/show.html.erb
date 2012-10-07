@@ -4,7 +4,8 @@
 
 <b><%= @transaction.amount %>: <%= @transaction.name %></b><br />
 <b>Koupil:</b> <%= User.find_by_id(@transaction.payer).username %><br />
-<b>Pro:</b> <%= @transaction.nice_user_list %>
+<b>Pro:</b> <%= @transaction.nice_user_list %> <br />
+<b>Poznámky:</b> <%= @transaction.notes %>
 <br />
 
 <%= link_to 'Destroy', @transaction, method: :delete, data: { confirm: 'Are you sure?' } %> |

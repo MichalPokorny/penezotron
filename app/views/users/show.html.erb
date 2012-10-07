@@ -10,7 +10,7 @@
 <%= @user.email %>
 </p>
 
-<table class="user_contributed">
+<table class="user_contributed table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th colspan="4">Přispěl</th>
@@ -23,17 +23,19 @@
 		</tr>
 	</thead>
 
+	<tbody>
 	<% @user.transactions_contributed.each do |transaction| %>
 		<tr>
 			<td><%= transaction.name %></td>
 			<td><%= transaction.nice_user_list %></td>
 			<td><%= transaction.amount %></td>
-			<td><%= link_to 'Show', transaction %></td>
+			<td><%= icon_link transaction, 'search' %></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
 
-<table class="user_expedited">
+<table class="user_expedited table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th colspan="4">Přijmul</th>
@@ -46,12 +48,14 @@
 		</tr>
 	</thead>
 
+	<tbody>
 	<% @user.transactions_contributed.each do |transaction| %>
 		<tr>
 			<td><%= transaction.name %></td>
 			<td><%= User.find_by_id(transaction.payer).username %></td>
 			<td><%= transaction.amount_per_user %></td>
-			<td><%= link_to 'Show', transaction %></td>
+			<td><%= icon_link transaction, 'search' %></td>
 		</tr>
 	<% end %>
+	</tbody>
 </table>
