@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+	  Od: <%= select("transaction", "payer", User.all.collect { |u| [ u.username, u.id ] }, :selected => current_user.id) %>
+  </div>
+
+  <div class="field">
 	  Pro:
 	  <% User.all.each do |user| %>
 		  <%= check_box_tag("transaction[user_list][#{user.id}]", "1", @transaction.users.detect{|d| d == user}) %>
