@@ -1,4 +1,18 @@
+# encoding: UTF-8
+
 class Transaction < ActiveRecord::Base
+	HUMAN_ATTRIBUTE_NAMES = {
+		:name => "Věc",
+		:amount => "Peníze",
+		:notes => "Poznámka"
+	}
+
+	class << self
+		def human_attribute_name attribute_name, options = {}
+			HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
+		end
+	end
+
 	validates :name, :presence => true
 	validates :amount, :presence => true, :numericality => { :greater_than => 0 }
 	validate :has_at_least_one_target

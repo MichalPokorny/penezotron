@@ -1,19 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-<b>Username:</b>
+<b>Uživatelské jméno:</b>
 <%= @user.username %>
 </p>
 
 <p>
-<b>Email:</b>
+<b>E-mail:</b>
 <%= @user.email %>
 </p>
 
 <table class="user_contributed table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th colspan="4">Přispěl</th>
+			<th colspan="2">Přispěl</th>
+			<th colspan="2">&Sigma; <%= money @user.total_contribution %></th>
 		</tr>
 		<tr>
 			<th>Věc</th>
@@ -28,7 +29,7 @@
 		<tr>
 			<td><%= transaction.name %></td>
 			<td><%= transaction.nice_user_list %></td>
-			<td><%= transaction.amount %></td>
+			<td><%= money transaction.amount %></td>
 			<td><%= icon_link transaction, 'search' %></td>
 		</tr>
 	<% end %>
@@ -38,7 +39,8 @@
 <table class="user_expedited table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th colspan="4">Přijmul</th>
+			<th colspan="2">Přijmul</th>
+			<th colspan="2">&Sigma; <%= money @user.total_contribution %></th>
 		</tr>
 		<tr>
 			<th>Věc</th>
@@ -53,7 +55,7 @@
 		<tr>
 			<td><%= transaction.name %></td>
 			<td><%= User.find_by_id(transaction.payer).username %></td>
-			<td><%= transaction.amount_per_user %></td>
+			<td><%= money transaction.amount_per_user %></td>
 			<td><%= icon_link transaction, 'search' %></td>
 		</tr>
 	<% end %>

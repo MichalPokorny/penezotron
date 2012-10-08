@@ -1,3 +1,5 @@
+<div class="clearfix">
+<div class="new-transaction-form">
 <%= form_for(@transaction) do |f| %>
 	<% if @transaction.errors.any? %>
 		<div id="error_explanation">
@@ -39,9 +41,10 @@
 	</div>
 
 	<div class="actions">
-		<%= f.submit :class => 'btn btn-primary' %>
+		<%= f.submit "Založit transakci", :class => 'btn btn-primary' %>
 	</div>
 <% end %>
+</div>
 
 <!-- TODO detail, seznam jeho transakci -->
 <table class="contribution-summary table table-condensed table-bordered">
@@ -53,16 +56,26 @@
 		</tr>
 	</thead>
 	<tbody>
-
+		<% sum = 0 %>
 		<% @users.each do |user| %>
+			<% sum += user.total_contribution %>
 			<tr>
 				<td><%= link_to user.username, user, :class => 'icon-user icon-large' %></td>
-				<td><%= user.total_contribution %></td>
-				<td><%= user.total_expedience %></td>
+				<td><%= money user.total_contribution %></td>
+				<td><%= money user.total_expedience %></td>
 			</tr>
 		<% end %>
 	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td colspan="2">
+				<%= money sum %>
+			</td>
+		</tr>
+	</tfoot>
 </table>
+</div>
 
 <table class="transaction-list table table-condensed table-hover table-striped table-bordered">
 	<thead>
@@ -81,7 +94,7 @@
 				<td><%= transaction.name %></td>
 				<td><%= link_to User.find_by_id(transaction.payer).username, User.find_by_id(transaction.payer), :class => 'icon-user icon-large' %></td>
 				<td><%= transaction.nice_user_list %></td>
-				<td><%= transaction.amount %></td>
+				<td><%= money transaction.amount %></td>
 				<td><%= icon_link transaction, 'search' %></td>
 			</tr>
 		<% end %>

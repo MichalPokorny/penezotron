@@ -2,7 +2,7 @@
 
 <h1>Detail transakce</h1>
 
-<b><%= @transaction.amount %>: <%= @transaction.name %></b><br />
+<b><%= money @transaction.amount %>: <%= @transaction.name %></b><br />
 <b>Koupil:</b> <%= User.find_by_id(@transaction.payer).username %><br />
 <b>Pro:</b> <%= @transaction.nice_user_list %> <br />
 <b>Poznámky:</b> <%= @transaction.notes %>
