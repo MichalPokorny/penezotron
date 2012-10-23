@@ -40,7 +40,7 @@
 	<thead>
 		<tr>
 			<th colspan="2">Přijmul</th>
-			<th colspan="2">&Sigma; <%= money @user.total_contribution %></th>
+			<th colspan="2">&Sigma; <%= money @user.total_expedience %></th>
 		</tr>
 		<tr>
 			<th>Věc</th>
@@ -51,13 +51,13 @@
 	</thead>
 
 	<tbody>
-	<% @user.transactions_contributed.each do |transaction| %>
+	<% @user.transactions_expedited.each do |transaction| %>
 		<tr>
 			<td><%= transaction.name %></td>
 			<td><%= User.find_by_id(transaction.payer).username %></td>
 			<td><%= money transaction.amount_per_user %></td>
 			<td><%= icon_link transaction, 'search' %></td>
-		</tr>
+			</tr>
 	<% end %>
 	</tbody>
 </table>
