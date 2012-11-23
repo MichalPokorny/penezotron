@@ -20,6 +20,7 @@
 			<th>Věc</th>
 			<th>Pro</th>
 			<th>Kolik</th>
+			<th>Vytvořeno</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -30,6 +31,7 @@
 			<td><%= transaction.name %></td>
 			<td><%= transaction.nice_user_list %></td>
 			<td><%= money transaction.amount %></td>
+			<td><%= datetime transaction.created_at %></td>
 			<td><%= icon_link transaction, 'search' %></td>
 		</tr>
 	<% end %>
@@ -46,6 +48,7 @@
 			<th>Věc</th>
 			<th>Od</th>
 			<th>Kolik</th>
+			<th>Vytvořeno</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -56,8 +59,9 @@
 			<td><%= transaction.name %></td>
 			<td><%= User.find_by_id(transaction.payer).username %></td>
 			<td><%= money transaction.amount_per_user %></td>
+			<td><%= datetime transaction.created_at %></td>
 			<td><%= icon_link transaction, 'search' %></td>
-			</tr>
+		</tr>
 	<% end %>
 	</tbody>
 </table>

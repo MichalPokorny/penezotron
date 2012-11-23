@@ -12,4 +12,8 @@ module ApplicationHelper
 	def money(amount)
 		amount.to_s + " Kč"
 	end
+
+	def datetime(datetime)
+		l datetime, :format => :long
+	end
 end
