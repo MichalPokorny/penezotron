@@ -13,6 +13,12 @@ module ApplicationHelper
 		amount.to_s + " Kč"
 	end
 
+	def money_balance(amount)
+		m = money(amount)
+		c = if amount >= 0 then "positive" else "negative" end
+		("<span class=\"balance #{c}\">" + m + "</span>").html_safe
+	end
+
 	def datetime(datetime)
 		l datetime, :format => :long
 	end

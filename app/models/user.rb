@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
 	def total_expedience
 		transactions_expedited.map { |t| t.amount_per_user }.inject(:+) || 0
 	end
+
+	def balance
+		total_contribution - total_expedience
+	end
 end

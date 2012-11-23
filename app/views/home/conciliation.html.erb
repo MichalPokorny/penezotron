@@ -1,0 +1,39 @@
+<h3>Vyrovnání:</h3>
+<table class="conciliation table table-condensed table-bordered">
+	<thead>
+		<tr>
+			<th>Transakce</th>
+			<th>Kolik</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @transactions.each do |transaction| %>
+			<tr>
+				<td><%= link_to transaction[:from].username, transaction[:from], :class => 'icon-user icon-large' %>
+					<b class="large">→</b>
+				<%= link_to transaction[:to].username, transaction[:to], :class => 'icon-user icon-large' %></td>
+				<td><%= money transaction[:amount] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<% unless @rest.empty? %>
+<h3>Zbytky:</h3>
+<table class="conciliation table table-condensed table-bordered">
+	<thead>
+		<tr>
+			<th>Kdo</th>
+			<th>Kolik</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @rest.each do |r| %>
+			<tr>
+				<td><%= link_to r[:user].username, r[:user], :class => 'icon-user icon-large' %></td>
+				<td><%= money r[:amount] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

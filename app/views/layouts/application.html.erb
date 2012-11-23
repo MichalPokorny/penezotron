@@ -15,17 +15,10 @@
 				<li><%= menu_icon_link current_user.username, current_user, 'user' %></li>
 				<li><%= menu_icon_link "Home", :home, 'home' %></li>
 				<li><%= menu_icon_link "Transakce", transactions_path, 'file' %></li>
+				<li><%= menu_icon_link "Vyrovnání", :conciliation, 'retweet' %></li>
 				<li><%= menu_icon_link "Změna údajů", edit_user_path(current_user.id), 'edit' %></li>
 				<li><%= menu_icon_link "Registrace nového uživatele", new_user_path, 'asterisk' %></li>
 				<li><%= menu_icon_link "Odhlásit", :logout, 'signout' %></li>
-				<!--
-				<li><%= link_to current_user.username, current_user, :class => "icon-user" %></li>
-				<li><%= link_to "Home", :home, :class => "icon-home" %></li>
-				<li><%= link_to "Transakce", transactions_path, :class => "icon-file" %></li>
-				<li><%= link_to "Změna údajů", edit_user_path(current_user.id), :class => "icon-edit" %></li>
-				<li><%= link_to "Registrace nového uživatele", new_user_path, :class => "icon-asterisk" %></li>
-				<li><%= link_to "Odhlásit", :logout, :class => "icon-signout" %></li>
-				-->
 			</ul>
 		</div>
 	</div>
