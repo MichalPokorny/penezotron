@@ -40,3 +40,5 @@ gem 'debugger'
 gem 'twitter-bootstrap-rails'
 gem 'authlogic'
 #gem 'simple-navigation'
+
+gem 'mysql2'
