@@ -43,11 +43,13 @@ class HomeController < ApplicationController
 				money = -m[2]
 			end
 
-			@transactions << {
-				:from => User.find_by_id(m[0]),
-				:to => User.find_by_id(p[0]),
-				:amount => money
-			}
+			if money > 0
+				@transactions << {
+					:from => User.find_by_id(m[0]),
+					:to => User.find_by_id(p[0]),
+					:amount => money
+				}
+			end
 
 			p[2] -= money
 			m[2] += money
