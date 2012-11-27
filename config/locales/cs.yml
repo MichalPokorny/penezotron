@@ -209,3 +209,6 @@ cs:
   activerecord:
     errors:
       <<: *errors
+  will_paginate:
+    next_label: Další stránka »
+    previous_label: « Předchozí stránka

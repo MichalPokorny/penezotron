@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
 	# GET /transactions
 	# GET /transactions.json
 	def index
-		@transactions = Transaction.all
+		@transactions = Transaction.paginate(:page => params[:page], :per_page => 25).order('created_at DESC')
 
 		respond_to do |format|
 			format.html # index.html.erb

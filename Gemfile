@@ -42,3 +42,6 @@ gem 'authlogic'
 #gem 'simple-navigation'
 
 gem 'mysql2'
+
+gem "will_paginate", "~> 3.0.0"
+gem "bootstrap-will_paginate"

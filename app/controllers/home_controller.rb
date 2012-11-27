@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 	def default
 		if current_user
-			@transactions = Transaction.all
+			@transactions = Transaction.paginate(:page => params[:page], :per_page => 25).order('created_at DESC')
 			@transaction = Transaction.new
 			@transaction.payer = current_user
 			@users = User.all
