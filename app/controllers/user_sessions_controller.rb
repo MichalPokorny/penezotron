@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to :home, notice: 'Login successful!' }
+        format.html { redirect_to :home, notice: 'Vítej!' }
         format.json { render json: @user_session, status: :created, location: :users }
       else
         format.html { redirect_to :home }
