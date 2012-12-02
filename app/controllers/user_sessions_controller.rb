@@ -1,3 +1,4 @@
+# encoding: utf-8
 class UserSessionsController < ApplicationController
 
   # GET /user_sessions/new

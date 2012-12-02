@@ -28,11 +28,7 @@
 
 	<div class="container">
 		<div class="content">
-			<% flash.each do |key,msg| %>
-				<div id="<%= key %>">
-					<%= msg %>
-				</div>
-			<% end %>
+			<%= render "layouts/flashes" %>
 			<%= yield %>
 		</div>
 	</div>
