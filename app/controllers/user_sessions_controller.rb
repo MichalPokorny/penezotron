@@ -34,7 +34,7 @@ class UserSessionsController < ApplicationController
     @user_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to :home, :notice => 'Goodbye.' }
+      format.html { redirect_to :home, :notice => 'Měj se.' }
       format.json { head :no_content }
     end
   end
