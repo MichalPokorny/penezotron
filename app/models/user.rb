@@ -40,4 +40,9 @@ class User < ActiveRecord::Base
 	def balance
 		total_contribution - total_expedience
 	end
+
+	# TODO: FUJ, proc tohle je potreba?
+	def to_i
+		id
+	end
 end
