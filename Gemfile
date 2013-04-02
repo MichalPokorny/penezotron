@@ -44,3 +44,5 @@ gem 'mysql2'
 gem "will_paginate", "~> 3.0.0"
 gem "bootstrap-will_paginate"
 
+# For evaluating expressions in amounts
+gem "calc"

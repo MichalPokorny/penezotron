@@ -31,6 +31,9 @@ class TransactionsController < ApplicationController
 	def create
 		payer = params[:transaction][:payer].to_i
 		params[:transaction].delete :payer
+
+		params[:transaction][:amount] = Calc.evaluate(params[:transaction][:amount])
+
 		@transaction = Transaction.new(params[:transaction])
 		if payer
 			@transaction.payer = payer
