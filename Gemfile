@@ -35,9 +35,6 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-gem 'debugger'
-
 gem 'twitter-bootstrap-rails'
 gem 'authlogic'
 #gem 'simple-navigation'
