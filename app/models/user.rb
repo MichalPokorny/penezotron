@@ -21,20 +21,23 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :transactions
 
 	def transactions_contributed
-		Transaction.all.select { |t| t.payer == id }
+		Transaction.where(payer_id: id)
 	end
 
 	def transactions_expedited
 		Transaction.all.select { |t| t.users.include? self }
 	end
 
-	# TODO optimalizuj
 	def total_contribution
-		transactions_contributed.map { |t| t.amount }.inject(:+) || 0
+		cache.fetch "user/#{id}/total_contribution", expires_in: 1.minute do
+			transactions_contributed.map { |t| t.amount }.inject(:+) || 0
+		end
 	end
 
 	def total_expedience
-		transactions_expedited.map { |t| t.amount_per_user }.inject(:+) || 0
+		cache.fetch "user/#{id}/total_expedience", expires_in: 1.minute do
+			transactions_expedited.map { |t| t.amount_per_user }.inject(:+) || 0
+		end
 	end
 
 	def balance
