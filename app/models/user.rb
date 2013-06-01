@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :transactions
 
 	def transactions_contributed
-		Transaction.where(payer_id: id)
+		Transaction.where(payer: id)
 	end
 
 	def transactions_expedited
@@ -29,13 +29,13 @@ class User < ActiveRecord::Base
 	end
 
 	def total_contribution
-		cache.fetch "user/#{id}/total_contribution", expires_in: 1.minute do
+		Rails.cache.fetch "user/#{id}/total_contribution", expires_in: 1.minute do
 			transactions_contributed.map { |t| t.amount }.inject(:+) || 0
 		end
 	end
 
 	def total_expedience
-		cache.fetch "user/#{id}/total_expedience", expires_in: 1.minute do
+		Rails.cache.fetch "user/#{id}/total_expedience", expires_in: 1.minute do
 			transactions_expedited.map { |t| t.amount_per_user }.inject(:+) || 0
 		end
 	end
